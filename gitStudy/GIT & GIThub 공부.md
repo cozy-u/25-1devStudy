@@ -79,7 +79,7 @@
     - reset과 달리 커밋한 내역을 없애버리는 것이 아니라 **+, - 의 관계로 표현되는 개념**
     - 실수로 잘못 커밋한 내역이 있더라도 **revert**를 통해 돌아가는게 안전!
     
-    ![image.png](./gitStudy/img/image.png)
+    ![image.png](./img/image.png)
     
     - revert를 하면서 충돌을 방지를 위해
         
@@ -108,7 +108,7 @@
 
 ## branch
 
-![image.png](./gitStudy/img/image%201.png)
+![image.png](./img/image%201.png)
 
 - 여러개의 브랜치를 만들었을 때, 각 브랜치에서 수정사항이 반영되면 다음과 같이 표현됨
     - master : 저장소를 만드는 순간 생성되는 main 브랜치
@@ -116,7 +116,7 @@
 
 ## checkout
 
-![image.png](./gitStudy/img/a298f6dd-6055-4997-8974-47a115804a97.png)
+![image.png](./img/a298f6dd-6055-4997-8974-47a115804a97.png)
 
 - head: 현재 속해있는 브랜치
     - head가 google 브랜치에 있음
@@ -125,12 +125,12 @@
 
 ## merge
 
-![image.png](./gitStudy/img/image%202.png)
+![image.png](./img/image%202.png)
 
 - merge를 할 때는 어떤 브랜치를 어떤 브랜치에 merge할 지가 중요함
     - 메인이 되는 master 브랜치에서 다른 branch들을 병합해야함
     
-    ![image.png](./gitStudy/img/image%203.png)
+    ![image.png](./img/image%203.png)
     
     - 만약 opentutorials 브랜치를 master 브랜치로 병합하려면,
     1. master 브랜치로 checkout
@@ -142,9 +142,9 @@
 - cherrypick
     - 같은 base를 둔 서로 다른 브랜치 master와 other 브랜치가 있을 때, 만약 master 브랜치의 a3에 other branch의 b2 버전만 가져와서 병합하고 싶다면? b2를 cherrypick 해와서 병합하면 됨
 
-![image.png](./gitStudy/img/b8450d68-1f7e-4ba4-827b-7a321c6ce85c.png)
+![image.png](./img/b8450d68-1f7e-4ba4-827b-7a321c6ce85c.png)
 
-![image.png](./gitStudy/img/bbdf9081-0d5c-4114-9ed8-4e783eb18a59.png)
+![image.png](./img/bbdf9081-0d5c-4114-9ed8-4e783eb18a59.png)
 
 # <GIT 4 - SourceTree 협업>
 
@@ -171,16 +171,16 @@
 
 - 원격 브랜치
     
-    ![image.png](./gitStudy/img/image%204.png)
+    ![image.png](./img/image%204.png)
     
     - origin/master 브랜치는 원격저장소에 저장되어 있는 master 브랜치를 의미
     - 따라서 현재 head가 올라가있는 master 브랜치 ≠ origin/master 브랜치
     
-    ![image.png](./gitStudy/img/image%205.png)
+    ![image.png](./img/image%205.png)
     
     - master 브랜치와 origin/master 브랜치가 동일한 상태에서, master 브랜치에서 커밋을 하게 되면 위와 같이 origin/master 브랜치는 다른 버전을 갖게 됨
     
-    ![image.png](./gitStudy/img/image%206.png)
+    ![image.png](./img/image%206.png)
     
     - 원격 저장소의 버전을 동일하게 유지하기 위해서는 master 브랜치의 커밋을 push해주면 됨
 - fetch
