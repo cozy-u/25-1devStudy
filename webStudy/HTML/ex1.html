@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8";>
+        <title>
+
+        </title>
+    </head>
+    <body>
+        <!--
+        <input type='button' value='hi' onclick="alert('hi')">
+        <input type="text" onchange="alert('changed')">
+        <input type="text" onkeydown="alert('key down')">
+        --> 
+
+        <script>
+            /*
+            //계산된 프로퍼티 (computed property)
+            let fruit = prompt("어떤 과일을 구매하시겠습니까?", "");
+            let bag = {[fruit]:5,};
+            alert(bag.apple);
+            */
+            /*
+            //in 연산자로 프로퍼티 존재 여부 확인
+            let user = {name:"John", age: 30, "like birds":true};
+
+            alert(user.name); //John
+            alert("age" in user); //true
+            */
+
+            let user = {
+            name: "John",
+            age: 30,
+            isAdmin: true
+            };
+
+            //for in 연산자
+            for (let key in user) {
+                alert( key );  // name, age, isAdmin
+                alert( user[key] ); // John, 30, true
+            } 
+
+            //for of 연산자
+            for(let key of Object.keys(user)){
+                alert(key); // name, age, isAdmin
+            }
+        </script>
+    </body>
+</html>
