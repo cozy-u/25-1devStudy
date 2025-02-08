@@ -13,3 +13,10 @@ Web 개발에 사용되는 언어로는 크게 HTML, CSS, JavaScript가 있는�
 생활코딩 - WEBn 시리즈를 이용하여 공부하였다. (WEB1)
 HTML의 기초 문법 태그를 이용해서 간단한 웹사이트 만들기를 따라해보았다.
 이후 완성한 웹사이트를 github page를 이용하여 웹호스팅 해보았다.
+
+### 2025.02.08
+
+저번 시간에 만들어놓은 웹사이트에 동영상 추가, 댓글 기능을 추가해보았다.
+Visual Studio Code의 확장 프로그램인 Live Server을 이용해서 웹 서버를 열어서 실시간으로 수정되는 웹페이지를 확인해볼 수 있었다.
+JavaScript는 HTML과 달리 사용자와 웹페이지의 상호작용을 위해 필요한 언어이다. 
+JavaScript의 기본 문법을 공부하는 중 - 데이터 타입과 이벤트(onclick, onchange, onkeydown)에 대해 공부했다.
