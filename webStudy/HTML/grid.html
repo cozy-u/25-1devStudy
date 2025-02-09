@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            div{
+                border:5px solid pink;
+            }
+            #grid{
+                border:5px solid gray;
+                display:grid;
+                grid-template-columns: 150px 1fr; /*grid를 이루는 요소들의 column 배열을 첫번째 요소는 150px로 고정하고, 두번째 요소는 나머지 프레임 전체를 사용*/
+            }
+        </style>
+    </head>
+    <body>
+        <div id="grid"> <!--두 개의 자식 div태그를 감싸는 부모 div태그의 id를 "grid"로 지정-->
+            <div>NAVIGATION</div>
+            <div>ARTICLE</div>
+        </div>  
+</html>

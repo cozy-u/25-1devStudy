@@ -18,7 +18,7 @@ ref> [https://dev-ini.tistory.com/36](https://dev-ini.tistory.com/36)
 
 - JS는 기본적으로 HTML 위에서 동작하는 언어
 
-- html 코드에서 JavaScript가 들어가는 부분은 <script> </script> 안에 작성 
+- html 코드에서 JavaScript가 들어가는 부분은 \<script> \</script> 안에 작성 
 
 ```html
 <!DOCTYPE html>
@@ -180,8 +180,8 @@ ref> [https://dev-ini.tistory.com/36](https://dev-ini.tistory.com/36)
     > 
     > - 빈 객체 만드는 방법
     >     
-    >     `let user = new Object(); 
-    >      let user = {};` 
+    >     `let user = new Object();`
+    >     <br>`let user = {};` 
     >     
     > - 프로퍼티 값 얻기
     >     
@@ -263,3 +263,281 @@ ref> [https://dev-ini.tistory.com/36](https://dev-ini.tistory.com/36)
     >     }
     >     ```
     >
+
+## JavaScript 문법(Syntax)
+
+[String - JavaScript | MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/String)
+
+> **var** *varName*
+> 
+> 
+> : 변수
+> 
+
+> *str*.indexOf(***searchValue***)
+> 
+> 
+> : 문자열에서 특정 문자가 몇번째에 있는지 확인
+> 
+> ```jsx
+> const sentence = "Hello World";
+> console.log(sentence.indexOf("l")); //2
+> ```
+> 
+
+> *str*.toUpperCase()
+> 
+> 
+> : 문자열을 모두 대문자로 바꿔서 보여줌 
+> 
+> ```jsx
+> const sentence = "Hello World";
+> console.log(sentence.toUpperCase()); //HELLO WORLD
+> ```
+> 
+
+# CSS
+
+- CSS는 웹페이지 디자인과 관련된 언어로, \<style> \</style> 안에 작성
+- 웹페이지 코드를 해석할 때, 디자인이 아닌 정보만을 가지고 있는 코드를 분석하고 싶다면 \<style> \</style>을 제외한 부분을 보면 됨
+
+## style
+
+> **스타일 태그: \<style> \</style>**
+> 
+> 
+> : 여러 개의 태그에 대해서 CSS를 적용하고 싶을 때 적용을 원하는 태그의 선택자 { } 를 이용하여 작성할 수 있음
+> 
+> ```jsx
+> <head>
+> 	<style>
+> 		a {  //모든 a 태그에 대하여
+> 			color:red; //색상을 red로 지정
+> 			text-decoration: none; //밑줄을 없앰
+> 		}
+> 		#active{ //"active"라는 id에 속한 태그에 대하여 
+> 			color:blue;
+> 		}
+> 		.saw{ //"saw"가 포함된 클래스에 속한 태그에 대하여
+> 			color:gray;
+> 		}
+> 		h1{
+> 			font-size: 60px;
+> 			text-align: center; //가운데 정렬
+> 		}
+> 	</style>
+> </head>
+> ```
+> 
+
+> ***스타일 속성:** \<tag*  **style =” ”>** \</tag>
+> 
+> 
+> : HTML 코드 내에서 특정 태그에 대해서 CSS 문법을 적용하고 싶을 때 “ “안에 CSS 코드를 작성
+> 
+> - CSS간의 구분은 ;로
+> 
+> ```jsx
+> <h1><a href="index.html">WEB</a></h1>
+>     <ol>
+>         <li><a href="1.html" class="saw">HTML</a></li>
+>         <li><a href="2.html" style="color:blue;text-decoration:underline"> CSS</a></li>
+>         <li><a href="3.html" class="saw">JavaScript</a></li>
+>     </ol>
+> ```
+> 
+
+## 스타일 프로퍼티
+
+![image.png](web2_img2.png)
+
+- 선택자는 태그 < 클래스(class) < 아이디(id) 순서로 declaration을 적용
+    - 사용 방법
+        
+        - 태그: *tag* {…}
+        
+        - 클래스: ***.**class* {…}
+        
+        * class=“a”, class=“ab”가 존재할 때, 선택자가 .a{ } → .b{ } 순서대로 온다면 “ab”클래스는 .b{ }를 따름
+        
+        * class=“a”, class=“ab”가 존재할 때, 선택자가 .b{ } → .a{ } 순서대로 온다면 “ab”클래스는 .a{ }를 따름
+        
+        - 아이디: ***#**id* {…}
+        
+        * id는 중복되면 안됨
+        
+    - 개발할 떄는 보통 태그 선택자를 통해서 전체적인 디자인을 먼저 해두고, 예외적인 부분에 아이디 선택자로 디자인
+- 스타일 프로퍼티
+    
+    > **color: [color]**
+    > 
+    > 
+    > : 색상 지정
+    > 
+    
+    > **text-decoration: [option]**
+    > 
+    > 
+    > : 서식 꾸미기 (underline, dotted, none 등)
+    > 
+    
+    > **font-size: [option]**
+    > 
+    > 
+    > : 글자 크기
+    > 
+    
+    > **text-align: [option]**
+    > 
+    > 
+    > : 글자 정렬
+    > 
+
+## 박스 모델
+
+- block level element
+    
+    화면 전체 영역을 사용하는 태그 (ex: h1, div)
+    
+- inline element
+    
+    자기 자신의 부피만큼의 영역을 사용하는 태그 (ex: a, span) 
+    
+
+![image.png](web2_img3.png)
+
+```html
+<div>div is </div>
+<div>block level element</div>
+//div is
+//block level element
+
+<span>span is </span>
+<span>inline element</span>
+//span is inline element
+```
+
+\<h1> 태그는 화면 전체 영역를 사용하는 block level element
+
+\<a> 태그는 자기 자신만을 사용하는 inline element
+
+\<div> 태그는 body 안에서 각 영역의 세션을 구분하는 block level element
+
+\<span> 태그는 일반적으로 텍스트의 색상, 크기, 좌우간격 등을 조절하는데 사용는 inline element
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            h1, a{
+                /*
+                border-width:5px;
+                border-color:red;
+                border-style:solid;
+                */
+                border: 5px red solid; //순서는 상관없음
+                padding:20px;
+                margin:50px;
+                width:60px;
+						}
+        </style>
+    </head>
+    <body>
+        <h1>CSS</h1> Cascading Style Sheets (<a href="https://en.wikipedia.org/wiki/CSS">CSS</a>) is a style sheet language used for specifying the presentation and styling of a document written in a markup language such as HTML or XML (including XML dialects such as SVG, MathML or XHTML). CSS is a cornerstone technology of the World Wide Web, alongside HTML and JavaScript.
+    </body>
+</html>
+```
+
+- 스타일 프로퍼티
+    
+    > **border-width: [option]**
+    > 
+    > 
+    > **border-color: [option]**
+    > 
+    > **border-style: [option]**
+    > 
+    > **= border: [option] [option] [option]**
+    > 
+    > : 테두리
+    > 
+    
+    > **padding: [option]**
+    > 
+    > 
+    > : 글자와 테두리 간의 간격
+    > 
+    
+    > **margin: [option]**
+    > 
+    > 
+    > : 테두리와 테두리 간의 간격
+    > 
+    > ![image.png](web2_img4.png)
+    > 
+    
+    > **display: [option]**
+    > 
+    > 
+    > : 선택자의 표시 옵션 (block, grid, none 등)
+    > 
+
+## 그리드(grid)
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            div{
+                border:5px solid pink;
+            }
+            #grid{
+                border:5px solid gray;
+                display:grid;
+                grid-template-columns: 150px 1fr; /*grid를 이루는 요소들의 column 배열을 첫번째 요소는 150px로 고정하고, 두번째 요소는 나머지 프레임 전체를 사용*/
+            }
+        </style>
+    </head>
+    <body>
+        <div id="grid"> <!--두 개의 자식 div태그를 감싸는 부모 div태그의 id를 "grid"로 지정-->
+            <div>NAVIGATION</div>
+            <div>ARTICLE</div>
+        </div>  
+</html>
+```
+
+## 반응형 디자인 - 미디어쿼리
+
+> **@media(조건){…}**
+> 
+> 
+> : 특정 조건이 만족될 경우 선택자 안의 쿼리가 수행되도록 함
+> 
+
+```css
+@media(max-width:800px){
+            #grid{
+                display:block
+            }
+            ol{
+            border-right:none;
+            width:800px;
+            border-bottom:3px solid gray;
+        }
+```
+
+## 코드의 재사용
+
+- CSS 코드가 여러 페이지에 동일하게 적용되는 경우엔, CSS 코드를 따로 .css로 저장하고, 이 파일을 각 페이지에 연결하는 것이 중복을 줄여 경제성이 높은 코딩방식이다
+
+> **\<link rel="stylesheet" href="style.css">**
+> 
+> 
+> : 현재 html 페이지의 스타일을 꾸미는데 사용되는 스타일시트인  href="style.css"라는 파일을 불러오는 링크
+>
