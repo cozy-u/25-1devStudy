@@ -1,4 +1,4 @@
-# WEB 2
+# <WEB 2>
 
 생활코딩의 [WEB2 - JavaScript]와 구글링을 통해 공부
 
