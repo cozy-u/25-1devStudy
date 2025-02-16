@@ -294,6 +294,128 @@ ref> [https://dev-ini.tistory.com/36](https://dev-ini.tistory.com/36)
 > const sentence = "Hello World";
 > console.log(sentence.toUpperCase()); //HELLO WORLD
 > ```
+>
+> 
+## 조건문
+
+- 동등 비교연산자: **===**
+- 비교 연산자:  **\&lt;** (less than)
+    
+    ```css
+    <!-- 버튼을 누르면 배경,글자색을 반전시켜주는 버튼-->
+    
+    <input id="night_day" type="button" value="night" onclick="
+            if(document.querySelector('#night_day').value==='night'){
+                document.querySelector('body').style.backgroundColor = 'black';
+                document.querySelector('body').style.color = 'white';
+                document.querySelector('#night_day').value='day';
+            }else{
+                document.querySelector('body').style.backgroundColor = 'white';
+                document.querySelector('body').style.color = 'black';
+                document.querySelector('#night_day').value='night';
+    
+            }
+     ">
+    ```
+    
+
+## 배열과 반복문
+
+- 배열
+    
+    - 배열에 저장되어 있는 값을 가져오는 방법: *Array* [*index*] 
+    
+    - 배열의 요소의 개수: *Array* **.length**
+    
+    - 값을 넣는 방법: *Array* **.push()**
+    
+- 반복문
+    - for문
+        
+        ```css
+        for(let i = 0; i<10; i++){
+        	console.log(i);
+        }
+        ```
+        
+        - `let i = 0` : let을 이용하여 변수 i를 선언하고 0을 할당하여 초기값 설정
+    - for … of
+            
+        ```css
+        const array = ['1번', '2번', '3번'];
+        
+        for(const element of array) {
+          console.log(element); // 배열[0] ~ 끝까지 순차적 출력
+          console.log(array); // 배열 전체 출력
+        }
+        //출력결과
+        //1번
+        //['1번', '2번', '3번']
+        //2번
+        //['1번', '2번', '3번']
+        //3번
+        //['1번', '2번', '3번']
+        ```
+        
+    - for … in
+        
+        - 배열보다는 object에 주로 사용 
+        
+        ```css
+        const obj = {
+          name : '이름',
+          age : '나이'
+        }
+        
+        for(const key **in** obj){
+          console.log(key); 
+          console.log(`key 값 : ${key}`); 
+          console.log(`value 값 : ${obj[key]}`); 
+        }
+        
+        //출력결과 
+        //name
+        //key 값 : name
+        //value 값 : 이름
+        //age
+        //key 값 : age
+        //value 값 : 나이
+        ```
+        
+        - obj.name과 같이 사용하려면 object내에 name이라는 key값을 가진 value가 존재해야한다.
+        
+    - while
+        
+        ```css
+        while(condition) {
+          // condition이 true이면 실행
+        }
+        ```
+        
+
+## 리팩토링, 중복의 제거
+
+중복으로 인해 비효율적인 코드를 개선하기 위해 리팩토링을 통해 코드의 중복을 제거
+
+> **this & 변수**
+> 
+> 
+> 아래 html 코드내에서 자기 자신을 지칭하는 키워드 this와 변수를 이용해 중복을 최소화하여 리팩토링한다.
+> 
+> ```css
+> <input type="button" value="night" onclick="
+>         var target = document.querySelector('body');
+>         if(this.value==='night'){
+>            target.style.backgroundColor = 'black';
+>            target.style.color = 'white';
+>             this.value='day';
+>         }else{
+>            target.style.backgroundColor = 'white';
+>            target.style.color = 'black';
+>             this.value='night';
+>         }
+>     ">
+> ```
 > 
 
 # CSS
