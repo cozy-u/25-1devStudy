@@ -8,6 +8,44 @@
 <body>
 
     <h1><a href="index.html">WEB</a></h1>
+    <!--
+    <input type="button" value="night" onclick="
+    document.querySelector('body').style.backgroundColor = 'black';
+    document.querySelector('body').style.color = 'white';
+    ">
+    <input type="button" value="day" onclick="
+    document.querySelector('body').style.backgroundColor = 'white';
+    document.querySelector('body').style.color = 'black';
+    ">
+    -->
+    <input type="button" value="night" onclick="
+        var target = document.querySelector('body');
+        if(this.value==='night'){
+           target.style.backgroundColor = 'black';
+           target.style.color = 'white';
+            this.value='day';
+            // querySelectorAll: <a>태그를 배열 형태로 변환
+            var alist = document.querySelectorAll('a');
+            var i=0;
+            while(i<alist.length){
+                alist[i].style.color ='powderblue';
+                i+=1;
+            }
+            alist[alist.length-2].style.color = 'purple';
+        }else{
+           target.style.backgroundColor = 'white';
+           target.style.color = 'black';
+            this.value='night';
+            var alist = document.querySelectorAll('a');
+            var i=0;
+            while(i<alist.length-2){
+                alist[i].style.color ='black';
+                i+=1;
+            }
+            alist[alist.length-1].style.color = 'black';
+        }
+    ">
+
     <div id="grid">
         <ol>
             <li><a href="1.html" class="saw">HTML</a></li>
@@ -21,5 +59,32 @@
             <p>JavaScript is a high-level, often just-in-time compiled language that conforms to the ECMAScript standard. It has dynamic typing, prototype-based object-orientation, and first-class functions. It is multi-paradigm, supporting event-driven, functional, and imperative programming styles. It has application programming interfaces (APIs) for working with text, dates, regular expressions, standard data structures, and the Document Object Model (DOM).</p>
         </div>
     </div>
+    <input type="button" value="night" onclick="
+        var target = document.querySelector('body');
+        if(this.value==='night'){
+           target.style.backgroundColor = 'black';
+           target.style.color = 'white';
+            this.value='day';
+            // <a>태그를 배열 형태로 변환
+            var alist = document.querySelectorAll('a');
+            var i=0;
+            while(i<alist.length){
+                alist[i].style.color ='powderblue';
+                i+=1;
+            }
+            alist[alist.length-2].style.color = 'purple';
+        }else{
+           target.style.backgroundColor = 'white';
+           target.style.color = 'black';
+            this.value='night';
+            var alist = document.querySelectorAll('a');
+            var i=0;
+            while(i<alist.length-2){
+                alist[i].style.color ='black';
+                i+=1;
+            }
+            alist[alist.length-1].style.color = 'black';
+        }
+    ">
 </body>
 </html>
