@@ -417,6 +417,152 @@ ref> [https://dev-ini.tistory.com/36](https://dev-ini.tistory.com/36)
 >     ">
 > ```
 > 
+> **함수/메소드**
+> 
+> 함수는 반복되는 코드의 재사용을 줄일 수 있는 방법 중 하나로, 매개 변수(parameter)를 인자로 받아 값을 return
+> 
+> ```html
+> <!DOCTYPE html>
+> <html>
+>     <head>
+>         <meta charset = "utf-8";>
+>         <title>Function-example</title>
+>     </head>
+>     <body>
+>         <h1>Function</h1>
+>         <h2>Basic</h2>
+>         <ul>
+>             <script>
+>                 //함수 선언 및 정의
+>                 function two(){
+>                     document.write('<li>2-1</li>');
+>                     document.write('<li>2-2</li>');
+>                 }
+> 
+>                 document.write('<li>1</li>');
+>                 two();
+>                 document.write('<li>3</li>');
+>                 two();
+>             </script>
+>         </ul>
+>         
+>         <h2>Parameter & Argument</h2>
+>         <script>
+>             //함수 선언 및 정의
+>             function sum(x, y){
+>                 document.write(x+y+'<br>');
+>             }
+>             
+>             sum(1,2);   //3
+>         </script>
+> 
+>         <h2>Return</h2>
+>         <script>
+>             function sumColored(x, y){
+>                 document.write('<div style="color:red">'+x+y+'</div><br>');
+>             }
+>             function sum2(x,y){
+>                 return x+y;
+>             }
+>             sumColored(3,4);   //3
+>             document.write(sum2(1,2)+'<br>');
+>             document.write('<div style="color:green">'+sum2(5,10)+'</div>');
+>             document.write('<div style="font-size: 3rem">'+sum2(10,20)+'</div>');
+>         </script>
+>     </body>
+> </html>
+> ```
+> 
+
+## 객체(Object)
+
+- **객체 { }**
+    
+    - 객체는 중괄호{ } 안에 키(key):값(value)쌍으로 이루어진 프로퍼티(property)를 가짐
+    
+    - 배열에서는 대괄호, 객체는 중괄호를 사용하여 생성 
+    
+    - 객체의 생성: var *변수명* = { “key”:”value”, “key”:”value”, …};
+    
+    - 객체 저장되어 있는 값을 가져올때: *Object*.**key**
+    
+    - 객체에 프로퍼티를 추가 : *Object* **.key = “value”** */  (만약 key값에 띄어쓰기를 포함하고 싶다면 Object* **.[”key title”] = “value”**
+    
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8";>
+        <title>Object-example</title>
+    </head>
+    <body>
+        <h1>Object</h1>
+        <h2>객체 생성</h2>
+        <script>
+            var coworkers = {
+                "programmer":"cozyu", "designer":"ayk"
+            };
+            document.write("programmer: "+coworkers.programmer+'<br>');
+            document.write("designer: "+coworkers.designer+'<br>');
+            coworkers.bookkeeper = "ridi";
+            document.write("bookkeeper: "+coworkers.bookkeeper+'<br>');
+            coworkers["data scientist"] = "yu";
+            document.write("data scientist: "+coworkers["data scientist"]+'<br>');
+        </script>
+        <h2> 객체의 프로퍼티와 메소드드</h2>
+	<script>
+            coworkers.showAll= function(){
+                for(var key in this){
+                document.write(key+": "+this[key]+'<br>');
+                }
+            };
+            coworkers.showAll()
+	</script>    
+	</body>
+</html>
+```
+
+- **객체의 반복문** **for … in**
+    
+    - 객체 안에 있는 key값을 대상으로 반복문 실행
+    
+
+```html
+<h2>iterate</h2>
+<script>
+for(var key in coworkers){
+	document.write(coworkers[key]+"<br>");
+}
+</script>
+```
+
+## 라이브러리와 프레임워크
+
+- jQuery: javascript를 보다 직관적으로 표현할 수 있는 라이브러리
+
+```jsx
+var Body={
+setColor:function(color){
+    //document.querySelector('body').style.color = color;},// javascript로 작성한 코드
+    $('body').css('color', color);}, //jQuery로 작성한 코드
+  
+setbgColor:function(color){
+    //document.querySelector('body').style.backgroundColor = color;}// javascript로 작성한 코드
+     $('body').css('backgroundColor', color);}//jQuery로 작성한 코드
+}
+```
+
+## UI & API
+
+- UI는 사용자가 시스템을 조작하기 위해 사용할 수 있는 장치의 화면상 배치로, 프로그래머 ↔ 사용자간의 상호작용에 집중
+
+- API는 UI가 동작하기 위해 필요한 응용프로그램 인터페이스, 운영체제와의 상호작용 형식 등을 포함한다.
+
+# CSS
+
+- CSS는 웹페이지 디자인과 관련된 언어로, <style> </style> 안에 작성
+- 웹페이지 코드를 해석할 때, 디자인이 아닌 정보만을 가지고 있는 코드를 분석하고 싶다면 <style> </style>을 제외한 부분을 보면 됨
 
 # CSS
 
