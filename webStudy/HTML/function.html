@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8";>
+        <title>Function-example</title>
+    </head>
+    <body>
+        <h1>Function</h1>
+        <h2>Basic</h2>
+        <ul>
+            <script>
+                //함수 선언 및 정의
+                function two(){
+                    document.write('<li>2-1</li>');
+                    document.write('<li>2-2</li>');
+                }
+
+                document.write('<li>1</li>');
+                two();
+                document.write('<li>3</li>');
+                two();
+            </script>
+        </ul>
+        
+        <h2>Parameter & Argument</h2>
+        <script>
+            //함수 선언 및 정의
+            function sum(x, y){
+                document.write(x+y+'<br>');
+            }
+            
+            sum(1,2);   //3
+        </script>
+
+        <h2>Return</h2>
+        <script>
+            function sumColored(x, y){
+                document.write('<div style="color:red">'+x+y+'</div><br>');
+            }
+            function sum2(x,y){
+                return x+y;
+            }
+            sumColored(3,4);   //3
+            document.write(sum2(1,2)+'<br>');
+            document.write('<div style="color:green">'+sum2(5,10)+'</div>');
+            document.write('<div style="font-size: 3rem">'+sum2(10,20)+'</div>');
+        </script>
+    </body>
+</html>
