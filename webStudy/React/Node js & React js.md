@@ -136,7 +136,7 @@
             - JS는 명령형 프로그래밍으로 동작하기 때문에 코드가 비교적 길고 복잡해질 수 있음
     3. 화면 업데이트가 빠르게 처리됨
         
-        ![image.png](25-1devStudy/webStudy/React/react_img1.png)
+        ![image.png](./react_img1.png)
         
         - 브라우저는 HTML과 CSS로 작성한 웹페이지를 위와 같은 렌더링 과정(Critical Rendering Path)을 거침
             
