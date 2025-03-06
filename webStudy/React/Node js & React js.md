@@ -569,3 +569,342 @@
 > export default Button;
 > ```
 >
+### 5. State - 상태 관리하기
+
+> **State**
+> 
+> 
+> : 현재 가지고 있는 형태나 모양을 정의하는 값이면서 변화할 수 있는 동적인 값.
+> 
+> - React의 컴포넌트들은 자신의 현재 상태를 보관하는 state 변수를 가질 수 있음
+> - state 값에 따라 각각 다른 UI를 화면에 렌더링할 수 있음
+> - 가변적으로 값을 변경시키고 싶다면 let을 이용한 JS 변수를 선언하는것이 아니라 state와 관련된 내장함수를 사용해야
+> 
+> **함수 컴포넌트에서 state를 생성**
+> 
+> - React에서 제공하는 useState 내장 함수를 사용해야함
+> 
+> ```jsx
+> import './App.css'
+> import {useState} from "react"; //state 생성을 위한 import문
+> 
+>   function App() { 
+>     const [state, setState] = useState("초기값"); //구조 분해 할당으로, **state에는 useState를 통해 생성한 state 값**이, **setState에는 useState의 값을 변화하는 함수**가 저장됨. 
+>     console.log(state);
+>     
+>   return (
+>     <>
+>     </>
+>   );
+> }
+> 
+> export default App;
+> 
+> ```
+> 
+> ![image.png](./react_img2.png)
+> 
+> - **useState()의 함수는 다음과 같은 2개의 요소를 담은 배열을 반환: {”초기값”, f}**
+>     - 1번째 요소: 생성된 state의 현재 값
+>     - 2번째 요소: state의 값을 변화시키는 상태 변화 함
+> 
+> **state 렌더링: return문 안에 `{state 변수명}` 작성** 
+> 
+> - 최초로 렌더링 될 때는 state 값=0 전달되어 렌더링
+> - 버튼을 클릭하면 state 값이 변경되도록 리렌더링
+> - ex: light state 값에 따라 ON/OFF 표시하도록 렌더링하라.
+> 
+> ```jsx
+> import './App.css'
+> import {useState} from "react"; //state 생성을 위한 import문
+> 
+>   function App() { 
+>     const [count, setCount] = useState(0); 
+>     const [light, setLight] = useState("OFF");
+>     
+>   return (
+>     <>
+>     <div>
+>       <h1>Light State</h1>
+>       <h2>{light}</h2>
+>       <button onClick={()=>{
+>         // if(light==="OFF")
+>         //   setLight("ON");
+>         // else setLight("OFF");
+>         setLight(light==="ON"? "OFF":"ON")
+>       }}>
+>         {light==="ON"?"끄기":"켜기"}
+>         </button>
+>     </div>
+>     <div>
+>       <h1>{count}</h1> 
+>       <button onClick={()=>{
+>         setCount(count+1);
+>       }}>
+>       +
+>       </button>
+>     </div>
+>     
+>     </>
+>   );
+> }
+> 
+> export default App;
+> ```
+> 
+
+### 6. State와 Props
+
+- React 컴포넌트의 리렌더링이 발생하는 3가지 경우
+    - 자신이 관리하는 state 값이 변경될 때
+    - 제공받는 props의 값이 변경될 때
+    - 부모 컴포넌트가 리렌더링되면서 자식 컴포넌트까지 함게 리렌더링 될 때
+- state를 props로 전달할 때 발생할 수 있는 리렌더링 문제를 해결하기 위해 관련 없는 컴포넌트는 분리하여 불필요한 리렌더링을 제거하는 것이 좋음
+    
+    ```jsx
+    import './App.css'
+    import {useState} from "react"; 
+    
+    const Bulb = ({light})=>{
+    	console.log(light);
+      return(
+        <div>
+    	    {light==="ON"?<h1 style={{backgroundColor:"orange"}}>ON</h1>:<h1 style={{backgroundColor:"gray"}}>OFF</h1>}
+        </div>
+        );
+      };
+    
+    function App() {   
+    	const [count, setCount] = useState(0);    
+    	const [light, setLight] = useState("OFF");
+      return (
+        <>
+        <Bulb light={light} />  
+        <div>
+            <button onClick={()=>{
+            setLight(light==="ON"? "OFF":"ON")
+          }}>
+            {light==="ON"?"끄기":"켜기"}
+            </button>
+          </div> 
+          <div>
+          <h1>{count}</h1> 
+          <button onClick={()=>{
+            setCount(count+1);
+          }}>
+          +
+          </button>
+        </div>
+        </>
+      );
+    }
+    
+    export default App;
+    
+    ```
+    
+    - 아래 코드는 위의 코드에서 리렌더링 문제가 발생하는 것을 해결하기 위해서 Bulb.jsx와 Counter.jsx로 컴포넌트를 분리하여 App 컴포넌트에서 호출하도록 수정한 결과.
+
+```jsx
+import {useState} from "import {useState} from "react";
+const Bulb = ()=>{
+    const [light, setLight] = useState("OFF");
+
+    return(
+      <div>
+        {light==="ON"?<h1 style={{backgroundColor:"orange"}}>ON</h1>:<h1 style={{backgroundColor:"gray"}}>OFF</h1>}
+        <button onClick={()=>{
+        // if(light==="OFF")
+        //   setLight("ON");
+        // else setLight("OFF");
+        setLight(light==="ON"? "OFF":"ON")
+      }}>
+        {light==="ON"?"끄기":"켜기"}
+        </button>
+      </div>
+    );
+  };
+
+  export default Bulb;
+```
+
+```jsx
+import {useState} from "react";
+
+const Counter = ()=>{
+    const [count, setCount] = useState(0); 
+    return(
+      <div>
+      <h1>{count}</h1> 
+      <button onClick={()=>{
+        setCount(count+1);
+      }}>
+      +
+      </button>
+    </div>
+    );
+  };
+
+  export default Counter;
+```
+
+```jsx
+import './App.css'
+import {useState} from "react"; //state 생성을 위한 import문
+import Bulb from './components/Bulb';
+import Counter from './components/Counter';
+  function App() {     
+  return (
+    <>
+    <Bulb />   
+    <Counter/> 
+    </>
+  );
+}
+
+export default App;
+
+```
+
+### 7. State로 사용자 입력 관리
+
+- ex: 간단한 회원가입 폼을 렌더링하는 컴퍼넌트
+    
+    ```jsx
+    //간단한 회원가입 폼
+    //1. 이름
+    //2 생년월일
+    //3. 국적
+    //4. 자기소개
+    
+    import {useState} from "react";
+    
+    const Register=()=>{
+        const [name, setName]=useState("이름");
+        const [birth,setBirth]=useState("");
+        const [country, setCountry]=useState("");
+        const [bio, setBio]=useState("");
+        
+        const onChangeName=(e)=>{
+            setName(e.target.value);
+        };
+        const onChangeBirth=(e)=>{
+            setBirth(e.target.value); //e.target의 value 프로퍼티에 접근하면 사용자가 input칸에 입력한 value에 접근할 수 있음
+        };
+        const onChangeCountry=(e)=>{
+            setCountry(e.target.value); 
+        };
+        const onChangeBio=(e)=>{
+            setBio(e.target.value);
+        };
+    
+        return(
+            <div>
+                <div>
+                    <input
+                    value={name} 
+                    onChange={onChangeName} 
+                    placeholder = "이름"/>
+                </div>
+                <div>
+                    <input 
+                    type="date" 
+                    value={birth}
+                    onChange={onChangeBirth}/> 
+                </div>
+                <div>
+                    <select value={country} onChange={onChangeCountry}>
+                        <option value=""></option>
+                        <option value="kr">한국</option>
+                        <option value="us">미국</option>
+                        <option value="uk">영국</option>
+                    </select>
+                </div>
+                <div>
+                    <textarea value={bio} onChange={onChangeBio}></textarea>
+                    {bio}
+                </div>
+            </div>
+        );
+    };
+    
+    export default Register;
+    ```
+    
+    - `<input> <input/>`: 정보를 입력할 수 있는 칸
+        - `onChange={}`: input칸의 변경이 발생했을
+        - `placeholder={}`: 입력 전 input칸에 글씨를 띄울 수 있음
+    - `<select> <select/>`: select box를 이용해 주어진 option 중 하나를 선택
+        - `<option> <option/>`: select box의 option
+            - `value={}`: option의 value를 지정해 주로 select box에는 자세히, value로 간단한 값을 넘겨주는 식으로 사용
+    - 중복 코드 최소화
+    
+    ```jsx
+    //간단한 회원가입 폼
+    //1. 이름
+    //2 생년월일
+    //3. 국적
+    //4. 자기소개
+    
+    import {useState} from "react";
+    
+    const Register=()=>{
+        
+        const [input, setInput]=useState({
+            name: "",
+            birth: "",
+            country: "",
+            bio:""
+        });
+    
+        const onChange=(e)=>{
+            setInput({
+            ...input,
+            [e.target.name]:e.target.value,
+            });
+        };
+    
+        return(
+            <div>
+                <div>
+                    <input
+                    name="name"
+                    value={input.name} 
+                    onChange={onChange} 
+                    placeholder = "이름"/>
+                </div>
+                <div>
+                    <input 
+                    name="birth"
+                    type="date" 
+                    value={input.birth}
+                    onChange={onChange}/> 
+                </div>
+                <div>
+                    <select name="country" value={input.country} onChange={onChange}>
+                        <option value=""></option>
+                        <option value="kr">한국</option>
+                        <option value="us">미국</option>
+                        <option value="uk">영국</option>
+                    </select>
+                </div>
+                <div>
+                    <textarea name="bio" value={input.bio} onChange={onChange}></textarea>
+                </div>
+            </div>
+        );
+    };
+    
+    export default Register;
+    ```
+
+### 8. useRef
+
+> **UseRef**
+> 
+> 
+> : 새로운 Reference 객체를 생성하는 기능
+> 
+> - `const refObject = useRef()`
+> - useRef는 컴포넌트 내부의 변수로 활용 가능하다는 점에서 useState와 비슷해보이지만 useState와는 달리 어떤 경우에도 리렌더링을 유발하지 않음
+> - 컴포넌트가 렌더링하는 특정 DOM 요소에 접근, 조작이 가능
