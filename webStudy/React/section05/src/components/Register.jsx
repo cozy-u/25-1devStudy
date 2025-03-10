@@ -7,26 +7,38 @@
 import {useState, useRef} from "react";
 
 const Register=()=>{
-    
     const [input, setInput] = useState({
         name: "",
         birth: "",
         country: "",
         bio:""
     });
-    const refObj = useRef(0);
-    console.log(refObj);
+
+    const countRef = useRef(0);
+    const inputRef = useRef();
+
     const onChange=(e)=>{
+        countRef.current+=1;
+        console.log(countRef.current);
         setInput({
         ...input,
         [e.target.name]:e.target.value,
         });
+    };
+    
+    const onSubmit=()=>{    //사용자가 4개의 폼에 입력을 모두 완료했는지를 확인해야함
+        if(input.name===""){    //만약 input state의 name값이 빈 문자열이라면 이름을 입력하도록 focus를 줄 수 있음
+            //이름을 입력하는 DOM 요소에 포커스
+            inputRef.current.focus();
+        }
+
     };
 
     return(
         <div>
             <div>
                 <input
+                ref={inputRef}  //input 태그가 렌더링하는 DOM요소가 inputRef라는 레퍼런스 객체에 저장됨됨
                 name="name"
                 value={input.name} 
                 onChange={onChange} 
@@ -50,6 +62,7 @@ const Register=()=>{
             <div>
                 <textarea name="bio" value={input.bio} onChange={onChange}></textarea>
             </div>
+            <button onClick={onSubmit} >제출</button>
         </div>
     );
 };
