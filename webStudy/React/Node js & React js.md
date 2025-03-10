@@ -908,3 +908,180 @@ export default App;
 > - `const refObject = useRef()`
 > - useRef는 컴포넌트 내부의 변수로 활용 가능하다는 점에서 useState와 비슷해보이지만 useState와는 달리 어떤 경우에도 리렌더링을 유발하지 않음
 > - 컴포넌트가 렌더링하는 특정 DOM 요소에 접근, 조작이 가능
+>     
+>     ![image.png](./react_img3.png)
+>     
+> 
+> - 최초로 refObj가 렌더링 될 때 Register 렌더링이 출력되고, 그 이후로는 리렌더링 없이 이벤트 핸들러 실행이 되고 있음
+>     
+>     ```
+>      import {useRef} from "react";
+>     	
+>      const refObj = useRef(0);
+>         console.log("Register 렌더링");
+>         
+>         ...
+>         
+>         return(
+>             <div>
+>             <button onClick={()=>{
+>                 refObj.current+=1;
+>                 console.log(refObj.current);
+>             }}>ref+1</button>
+>             
+>             ...
+>     ```
+>     
+>     ![image.png](./react_img4.png)
+>     
+> 
+> - 컴퍼넌트 내부에서 리렌더링을 유발시키지 않는 변수를 만들어야할 때 왜 굳이 JS 변수가 아닌 useRef를 써야하는 걸까?
+>     - input 값의 변경이 일어나면 onChange 이벤트 핸들러가 실행되면서 state의 값을 변경하게 되기 때문에 Register 컴퍼넌트가 리렌더링 됨 → Register안에 있는 `let count = 0;`가 다시 호출되기 때문에 수정할 때마다 수정 횟수가 업데이트 되지 못하고 계속 0으로 초기화되기 때문에 1을 여러 번 출력하게 되는 것임
+- 레퍼런스 객체 활용
+    
+    EX1) 작성한 4개의 폼의 변경이 얼만큼 이루어졌는지 수정 횟수를 카운트하는 레퍼런스 객체
+    
+    ```jsx
+     //
+     const countRef = useRef(0);
+    
+        const onChange=(e)=>{
+            countRef.current+=1;
+            console.log(countRef.current);
+            setInput({
+            ...input,
+            [e.target.name]:e.target.value,
+            });
+        };
+    ```
+    
+    EX2) 레지스터 컴퍼넌트가 렌더링하고 있는 DOM 요소들을 조작하는 기능 (작성한 회원가입 폼을 제출하기 위해 ‘name’ 칸의 작성이 완료되었는지 확인해야함. 그렇지 않다면 레퍼런스 객체의 focus함수를 이용해 DOM에 포커스를 주어야함)
+    
+    - 포커스: 특정 객체를 선택된 상태로 만드는 것
+    
+    ```jsx
+    //간단한 회원가입 폼
+    //1. 이름
+    //2 생년월일
+    //3. 국적
+    //4. 자기소개
+    
+    import {useState, useRef} from "react";
+    
+    const Register=()=>{
+        const [input, setInput] = useState({
+            name: "",
+            birth: "",
+            country: "",
+            bio:""
+        });
+    
+        const countRef = useRef(0);
+        const inputRef = useRef();
+    
+        const onChange=(e)=>{
+            countRef.current+=1;
+            console.log(countRef.current);
+            setInput({
+            ...input,
+            [e.target.name]:e.target.value,
+            });
+        };
+        
+        const onSubmit=()=>{    //사용자가 4개의 폼에 입력을 모두 완료했는지를 확인해야함
+            if(input.name===""){    //만약 input state의 name값이 빈 문자열이라면 이름을 입력하도록 focus를 줄 수 있음
+                //이름을 입력하는 DOM 요소에 포커스
+                inputRef.current.focus();
+            }
+        };
+    
+        return(
+            <div>
+                <div>
+                    <input
+                    ref={inputRef}  //input 태그가 렌더링하는 DOM요소가 inputRef라는 레퍼런스 객체에 저장됨
+                    name="name"
+                    value={input.name} 
+                    onChange={onChange} 
+                    placeholder = "이름"/>
+                </div>
+                <div>
+                    <input 
+                    name="birth"
+                    type="date" 
+                    value={input.birth}
+                    onChange={onChange}/> 
+                </div>
+                <div>
+                    <select name="country" value={input.country} onChange={onChange}>
+                        <option value=""></option>
+                        <option value="kr">한국</option>
+                        <option value="us">미국</option>
+                        <option value="uk">영국</option>
+                    </select>
+                </div>
+                <div>
+                    <textarea name="bio" value={input.bio} onChange={onChange}></textarea>
+                </div>
+                <button onClick={onSubmit} >제출</button>
+            </div>
+        );
+    };
+    
+    export default Register;
+    ```
+    
+
+### 9. React Hooks
+
+> **React Hooks**
+> 
+> 
+> : 클래스 컴포넌트의 기능을 함수 컴포넌트에서도 이용할 수 있도록 도와주는 메서드 
+> 
+> - 2017년 이전의 React → **클래스** 컴포넌트(State, Ref 등의 모든 기능 이용 가능) + **함수** 컴포넌트(UI렌더링만 가능)
+> - 이후 React Hooks이 개발되면서 **함수** 컴포넌트에서도 class 컴포넌트의 기능을 이용할 수 있게 됨(useState, useRef, useEffect, useReducer )
+> - React Hooks 앞에는 use라는 접두사가 붙음: 나만의 Custom hook을 만들어 쓸 수 있음
+> - **함수** 컴포넌트 내부에서만 호출될 수 있고, 조건문이나 반복문에서는 호출 불가
+>     
+>     ![image.png](./react_img5.png)
+>     
+> 
+> ```jsx
+> // //3가지 Hook과 관련된 팁
+> // 1. 함수 컴포넌트 또는 custom hook 내부에서만 호출이 가능
+> // 2. 조건부로 호출할 수 없음
+> // 3. 나만의 훅(custom hook)을 직접 만들 수 있음 
+> //3-1. custom hook은 보통 별도의 폴더에 따로 보관
+> 
+> import useInput from "./../hooks/useInput";
+> 
+> const HookExam = ()=>{
+>     const [input, onChange] = useInput();
+>     return(
+>     <div>
+>         <input value ={input} onChange={onChange}/>
+>     </div>);
+> };
+> 
+> export default HookExam;
+> 
+> ```
+> 
+> ```jsx
+> // useInput.jsx
+> 
+> import {useState} from "react";
+> 
+> function useInput(){
+>     const [input, setInput] = useState("");
+>     const onChange=(e)=>{
+>         setInput(e.target.value);
+>     };
+>     return [input, onChange];
+> }
+> 
+> 	export default useInput;
+> 	// named export를 사용했기 때문에 App.jsx에서 import 할 때 {useImput}가 아닌 useput을 써줘야 오류가 나지 않는다
+> ```
+>
