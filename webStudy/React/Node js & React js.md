@@ -1111,3 +1111,141 @@ export default App;
 > - 컴포넌트가 Update되었을 때 변경된 값이 현재 무엇인지 콘솔에 출력하도록하는 기능을 만들 수 있음
 > - 컴포넌트가 unMount되었을 때 컴포넌트가 사용하던 여러 유형의 메모리를 정리하는 기능을 만들 수 있음
 > - UseEffect 훅을 이용하면 손쉽게 구현할 수 있음
+
+> **useEffect**
+> 
+> - 첫번째 인수로 **콜백함수**를, 두번째 인수로 배열 **deps(dependency array, 의존성 배열)**을 받아옴
+> - deps 배열에 들어가 있는 값이 변경되면 side effect로서 콜백 함수를 실행
+> 
+> ```jsx
+> import './App.css'
+> import Viewer from './components/Viewer'
+> import Controller from './components/Controller'
+> import { useState, useEffect } from "react";
+> 
+> function App() {
+>   const [count, setCount] = useState(0);
+>   const [input, setInput] = useState("");
+> 
+>   //useEffect
+>   //첫번째 인수로 콜백함수를, 두번째 인수로 배열을 받아옴 
+>   //두번째 인수로 전달한 배열에 들어가 있는 값이 변경되면 sideEffect로서 첫번째 인수로 전달한 콜백 함수를 실행
+>   useEffect(() => {
+>     console.log(`count: ${count} / input: ${input}`);
+>   }, [count, input]);
+>   //count나 input의 값이 바뀌면 콜백함수를 통해 count의 값이 콘솔창에 출력됨
+>   
+>   //Controller 컴포넌트의 button을 누르면 값을 더하고 빼는 이벤트 핸들러
+>   const onClickButton = (value) => {
+>     setCount(count + value);
+> 	//이 라인에 console.log(count);을 넣어도 setCount가 비동기로 동작하기 때문에 현재 변경된 count값을 바로 반영하지 못함. 따라서 변경된 state 값에 따른 side effect에 해당하는 부가적인 작업을 하려면 useEffect를 사용해야 함.
+>   };
+> 
+>   return (
+>     <div className="App">
+>       <h1>Simple Counter</h1>
+>       <section>
+>         <input 
+>         value={input}
+>         onChange={(e)=>{
+>           setInput(e.target.value)
+>         }}></input>
+>       </section>
+>       <section >
+>         <Viewer count={count} />
+>       </section>
+>       <section>
+>         <Controller onClickButton={onClickButton} />
+>       </section>
+> 
+>     </div>
+>   )
+> }
+> 
+> export default App
+> 
+> ```
+> 
+> **useEffect로 라이프 사이클 제어하기**
+> 
+> ```jsx
+> //Even.jsx
+> 
+> import {useEffect} from 'react';
+> 
+> const Even=()=>{
+>     useEffect(()=>{
+>         //클린업, 정리 함수
+>         return ()=>{
+>             console.log("unmount");
+>         };
+>     },[]);
+> 
+>     return <div>짝수입니다.</div>
+> };
+> 
+> export default Even;
+> ```
+> 
+> ```jsx
+> //App.jsx
+> 
+> import './App.css'
+> import Viewer from './components/Viewer'
+> import Controller from './components/Controller'
+> import Even from './components/Even'
+> import { useState, useEffect, useRef } from "react";
+> 
+> function App() {
+>   const [count, setCount] = useState(0);
+>   const [input, setInput] = useState("");
+> 
+>   const isMount = useRef(false);
+> 
+>   **//1. 마운트: 탄생
+>   useEffect(()=>{console.log("mount")},[]);
+> 
+>   //2. 업데이트: 변화, 리렌더링
+>   //deps를 생략
+>   //useRef를 이용해서 컴포넌트가 최초로 마운트될 때는 update되지 않도록 하고, 다시 리렌더링이 될때 아래 코드를 실행하도록 설정.
+>   useEffect(()=>{
+>     if(!isMount.current){
+>       isMount.current=true;
+>       return;
+>     }
+>     console.log("update")});
+> 
+>   //3. 언마운트: 죽음
+>   //화면에 나타났다가 사라졌다가 하는 컴포넌트가 필요함 -> Even 컴포넌트**
+>   
+>   //Controller 컴포넌트의 button을 누르면 값을 더하고 빼는 이벤트 핸들러
+>   const onClickButton = (value) => {
+>     setCount(count + value);
+>   };
+> 
+>   return (
+>     <div className="App">
+>       <h1>Simple Counter</h1>
+>       <section>
+>         <input 
+>         value={input}
+>         onChange={(e)=>{
+>           setInput(e.target.value)
+>         }}></input>
+>       </section>
+>       <section >
+>         <Viewer count={count} />
+>         **{count % 2 === 0 ? <Even/>:null}**
+>       </section>
+>       <section>
+>         <Controller onClickButton={onClickButton} />
+>       </section>
+> 
+>     </div>
+>   )
+> }
+> 
+> export default App
+> 
+> ```
+>
